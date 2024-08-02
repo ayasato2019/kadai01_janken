@@ -21,6 +21,7 @@
             <li class="ganken-item"><img src="./img/janken_gu.png" width="220" height="220" alt="ジャンケングーのイラスト"></li>
             <li class="ganken-item"><img src="./img/janken_choki.png" width="220" height="220" alt="ジャンケンチョキのイラスト"></li>
             <li class="ganken-item"><img src="./img/janken_pa.png" width="220" height="220" alt="ジャンケンパーのイラスト"></li>
+            <li class="ganken-item"><img src="./img/janken_all.png" width="220" height="220" alt="ジャンケン全部出しのイラスト"></li>
         </ul>
 
         <ul class="button-flex" role="list">
@@ -55,18 +56,24 @@
             items.forEach(item => {
                 item.style.opacity = '0';
             });
+            if (index == 3) {
+                index = (index + 1) % items.length;
+            }
             items[index].style.opacity = '1';
             index = (index + 1) % items.length;
         }
 
         function playGame(e) {
             const user = e.target.id;
-            const pc = Math.ceil(Math.random() * 3);
+            const pc = Math.ceil(Math.random() * 10);
             
             
             if (isAnimating) {
                 clearInterval(intervalId);
-                if(pc == 1) {
+                if(pc == 1 || pc == 4 || pc == 7) {
+                    items.forEach(item => {
+                        item.style.opacity = '0';
+                    });
                     items[0].style.opacity = '1';
                     index = 0;
                     if(user == 'gu') {
@@ -76,7 +83,23 @@
                     } else {
                         judgment.innerHTML = '勝ち';
                     }
-                } else if(pc == 2) {
+                } else if(pc == 2 || pc == 5 || pc == 8) {
+                    items.forEach(item => {
+                        item.style.opacity = '0';
+                    });
+                    items[1].style.opacity = '1';
+                    index = 1;
+                    if(user == 'gu') {
+                        judgment.innerHTML = '勝ち';
+                    } else if(user == 'choki') {
+                        judgment.innerHTML = 'あいこ';
+                    } else {
+                        judgment.innerHTML = '負け';
+                    }
+                } else if(pc == 3 || pc == 6 || pc == 9) {
+                    items.forEach(item => {
+                        item.style.opacity = '0';
+                    });
                     items[1].style.opacity = '1';
                     index = 1;
                     if(user == 'gu') {
@@ -87,15 +110,12 @@
                         judgment.innerHTML = '負け';
                     }
                 } else {
-                    items[2].style.opacity = '1';
-                    index = 2;
-                    if(user == 'gu') {
-                        judgment.innerHTML = '負け';
-                    } else if(user == 'choki') {
-                        judgment.innerHTML = '勝ち';
-                    } else {
-                        judgment.innerHTML = 'あいこ';
-                    }
+                    items.forEach(item => {
+                        item.style.opacity = '0';
+                    });
+                    items[3].style.opacity = '1';
+                    index = 3;
+                    judgment.innerHTML = 'なんじゃこりゃ';
                 }
             } else {
                 intervalId = setInterval(toggleOpacity, 100);
