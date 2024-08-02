@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/sample.css">
+    <title>じゃんけん</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>じゃんけんしよう！</h1>
+    </header>
+
+    <main>
+        <ul>
+            <li id="gu_btn" class="button">グー</li>
+            <li id="cho_btn" class="button">チョキ</li>
+            <li id="par_btn" class="button">パー</li>
+        </ul>
+        <div>コンピュータの出した手は？「<span id="pc_hands">なに？</span>」</div>
+        <div id="judgment">勝ち</div>
+    </main>
+
+    <footer></footer>
+    <script>
+        const gu = document.querySelector('#gu_btn');
+        const choki = document.querySelector('#cho_btn');
+        const par = document.querySelector('#par_btn');
+        const pcGankenItem = document.querySelector('#pc_hands');
+        const judgment = document.querySelector('#judgment');
+        
+        function playGanken() {
+            const user = event.target.id;
+            const pcGankenNum = Math.ceil(Math.random() * 3);
+
+            if(pcGankenNum == 1) {
+                pcGankenItem.innerHTML = 'グー';
+                if(user == 'gu_btn') {
+                    judgment.innerHTML = 'あいこ';
+                } else if(user == 'cho_btn') {
+                    judgment.innerHTML = '負け';
+                } else {
+                    judgment.innerHTML = '勝ち';
+                }
+            } else if(pcGankenNum == 2) {
+                pcGankenItem.innerHTML = 'チョキ';
+                if(user == 'gu_btn') {
+                    judgment.innerHTML = '勝ち';
+                } else if(user == 'cho_btn') {
+                    judgment.innerHTML = 'あいこ';
+                } else {
+                    judgment.innerHTML = '負け';
+                }
+            } else {
+                pcGankenItem.innerHTML = 'パー';
+                if(user == 'gu_btn') {
+                    judgment.innerHTML = '負け';
+                } else if(user == 'cho_btn') {
+                    judgment.innerHTML = '勝ち';
+                } else {
+                    judgment.innerHTML = 'あいこ';
+                }
+            }
+        }
+
+        gu.addEventListener('click', playGanken);
+        choki.addEventListener('click', playGanken);
+        par.addEventListener('click', playGanken);
+    </script>
+</body>
+
+</html>

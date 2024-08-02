@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>ジャンケン</title>
+</head>
+
+<body class="body">
+
+    <header class="header">
+        <h1 class="header-title">ジャンケンしよう！</h1>
+    </header>
+
+    <main class="main">
+        <ul class="ganken" role="list">
+            <li class="ganken-item"><img src="./img/janken_gu.png" width="220" height="220" alt="ジャンケングーのイラスト"></li>
+            <li class="ganken-item"><img src="./img/janken_choki.png" width="220" height="220" alt="ジャンケンチョキのイラスト"></li>
+            <li class="ganken-item"><img src="./img/janken_pa.png" width="220" height="220" alt="ジャンケンパーのイラスト"></li>
+        </ul>
+
+        <ul class="button-flex" role="list">
+            <li class="button-wrap">
+                <button id="gu" class="button_start" aria-label="グー" ><img src="./img/janken_gu.png" width="220" height="220" alt="ジャンケングーのイラスト"></button>
+            </li>
+            <li class="button-wrap">
+                <button id="choki" class="button_start" aria-label="チョキ" ><img src="./img/janken_choki.png" width="220" height="220" alt="ジャンケンチョキのイラスト"></button>
+            </li>
+            <li class="button-wrap">
+                <button id="par" class="button_start" aria-label="パー" ><img src="./img/janken_pa.png" width="220" height="220" alt="ジャンケンパーのイラスト"></button>
+            </li>
+        </ul>
+        <p class="ganken-text">ジャンケン...<span id="judgment">ポン！</span></p>
+        </main>
+
+    <footer class="footer">© 2024 ayasato. This project is licensed under the MIT License. See LICENSE file for details.
+    </footer>
+
+    <script>
+        const items = document.querySelectorAll('.ganken-item');
+        let index = 0;
+        let isAnimating = true;
+        let intervalId;
+        const gankenImage = document.querySelector('.ganken-item');
+        const button = document.querySelector('.button_start');
+        const gu = document.querySelector('#gu');
+        const choki = document.querySelector('#choki');
+        const par = document.querySelector('#par');
+        const judgment = document.querySelector('#judgment');
+
+        function toggleOpacity() {
+            items.forEach(item => {
+                item.style.opacity = '0';
+            });
+            items[index].style.opacity = '1';
+            index = (index + 1) % items.length;
+        }
+
+        function playGame(e) {
+            const user = e.target.id;
+            const pc = Math.ceil(Math.random() * 3);
+
+            if (isAnimating) {
+                clearInterval(intervalId);
+                if(pc == 1) {
+                    gankenImage.innerHTML = '<img src="./img/janken_gu.png" width="220" height="220" alt="ジャンケングーのイラスト">';
+                    if(user == 'gu') {
+                        judgment.innerHTML = 'あいこ';
+                    } else if(user == 'choki') {
+                        judgment.innerHTML = '負け';
+                    } else {
+                        judgment.innerHTML = '勝ち';
+                    }
+                } else if(pc == 2) {
+                    gankenImage.innerHTML = '<img src="./img/janken_choki.png" width="220" height="220" alt="ジャンケンチョキのイラスト">';
+                    if(user == 'gu') {
+                        judgment.innerHTML = '勝ち';
+                    } else if(user == 'choki') {
+                        judgment.innerHTML = 'あいこ';
+                    } else {
+                        judgment.innerHTML = '負け';
+                    }
+                } else {
+                    gankenImage.innerHTML = '<img src="./img/janken_pa.png" width="220" height="220" alt="ジャンケンパーのイラスト">';
+                    if(user == 'gu') {
+                        judgment.innerHTML = '負け';
+                    } else if(user == 'choki') {
+                        judgment.innerHTML = '勝ち';
+                    } else {
+                        judgment.innerHTML = 'あいこ';
+                    }
+                }
+            } else {
+                intervalId = setInterval(toggleOpacity, 100);
+            }
+            isAnimating = !isAnimating;
+        }
+
+        // アニメーションを開始
+        intervalId = setInterval(toggleOpacity, 100);
+        // ボタンクリックでストップイベントが発火
+        gu.addEventListener('click', playGame);
+        choki.addEventListener('click', playGame);
+        par.addEventListener('click', playGame);
+    </script>
+</body>
+
+</html>
