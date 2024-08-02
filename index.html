@@ -115,7 +115,7 @@
                     });
                     items[3].style.opacity = '1';
                     index = 3;
-                    judgment.innerHTML = 'なんじゃこりゃ';
+                    judgment.innerHTML = 'なんじゃこりゃ？ビッグボス！';
                 }
             } else {
                 intervalId = setInterval(toggleOpacity, 100);
@@ -123,7 +123,7 @@
             isAnimating = !isAnimating;
         }
 
-        // アニメーションを開始
+        // アニメーションを開
         intervalId = setInterval(toggleOpacity, 100);
         // ボタンクリックでストップイベントが発火
         gu.addEventListener('click', playGame);

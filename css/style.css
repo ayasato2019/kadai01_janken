@@ -1,5 +1,6 @@
 :root {
-	--color-primary: #252525;
+	--color-primary: #333;
+	--color-darkgray: #252525;
 	--color-secondry: #2F96E0;
 }
 
@@ -40,16 +41,21 @@
 .ganken {
 	list-style: none;
 	margin: 30px auto;
-	height: 220px;
-	width: 220px;
-	position: relative;
-	background-color: #fff;
+    border-radius: 60px;
+    height: 280px;
+    width: 300px;
+    position: relative;
+    background-color: var(--color-darkgray);
+    border: 10px solid #666;
 }
 
 .ganken-item {
 	position: absolute;
 	top: 0;
 	left: 0;
+	padding: 30px;
+	height: 100%;
+	width: 100%;
 }
 
 .button-flex {
@@ -61,7 +67,6 @@
 }
 
 .button-wrap {
-	margin: 0 auto;
 	padding: 5px;
 	width: 150px;
 	height: 150px;
