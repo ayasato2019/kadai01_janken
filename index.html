@@ -45,7 +45,6 @@
         let index = 0;
         let isAnimating = true;
         let intervalId;
-        const gankenImage = document.querySelector('.ganken-item');
         const button = document.querySelector('.button_start');
         const gu = document.querySelector('#gu');
         const choki = document.querySelector('#choki');
@@ -63,11 +62,13 @@
         function playGame(e) {
             const user = e.target.id;
             const pc = Math.ceil(Math.random() * 3);
-
+            
+            
             if (isAnimating) {
                 clearInterval(intervalId);
                 if(pc == 1) {
-                    gankenImage.innerHTML = '<img src="./img/janken_gu.png" width="220" height="220" alt="ジャンケングーのイラスト">';
+                    items[0].style.opacity = '1';
+                    index = 0;
                     if(user == 'gu') {
                         judgment.innerHTML = 'あいこ';
                     } else if(user == 'choki') {
@@ -76,7 +77,8 @@
                         judgment.innerHTML = '勝ち';
                     }
                 } else if(pc == 2) {
-                    gankenImage.innerHTML = '<img src="./img/janken_choki.png" width="220" height="220" alt="ジャンケンチョキのイラスト">';
+                    items[1].style.opacity = '1';
+                    index = 1;
                     if(user == 'gu') {
                         judgment.innerHTML = '勝ち';
                     } else if(user == 'choki') {
@@ -85,7 +87,8 @@
                         judgment.innerHTML = '負け';
                     }
                 } else {
-                    gankenImage.innerHTML = '<img src="./img/janken_pa.png" width="220" height="220" alt="ジャンケンパーのイラスト">';
+                    items[2].style.opacity = '1';
+                    index = 2;
                     if(user == 'gu') {
                         judgment.innerHTML = '負け';
                     } else if(user == 'choki') {
